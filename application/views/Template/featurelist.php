@@ -9,8 +9,8 @@
 <body>
 	<div class='container' style='margin-top:50px;'>
 
-
-	<div class='row '>
+<?=$this->session->flashdata('success');?>
+<div class='row '>
 
 		<div class="col-md-3"></div>
 		<div class='col-md-8'>
@@ -24,7 +24,9 @@
 	<th>Actions</th>
 
   </tr>
+
 <?php
+if(!empty($data))
 $i = 1;
 foreach ($data as $row):?>
 <tr>
