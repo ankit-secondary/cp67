@@ -26,8 +26,10 @@
   </tr>
 
 <?php
-if(!empty($data))
-$i = 1;
+if (!empty($data)) {
+	$i = 1;
+}
+
 foreach ($data as $row):?>
 <tr>
 	<td><?php echo $i;?></td>

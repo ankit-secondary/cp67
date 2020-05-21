@@ -35,30 +35,30 @@ class Feature extends CI_Controller {
 
 		$this->load->view('/header');
 
-		//$this->form_validation->set_rules('package[]', 'Package', 'required');
+		$this->form_validation->set_rules('hidden_package[]', 'Package', 'required');
+		$this->form_validation->set_rules('hidden_feature[]', 'feature', 'required');
+		if ($this->form_validation->run() == TRUE) {
 
-		//if ($this->form_validation->run() == TRUE) {
+			if ($this->input->post('insert')) {
 
-		if ($this->input->post('insert')) {
+				$feature = $this->input->post('hidden_feature[]');
 
-			$feature = $this->input->post('hidden_feature[]');
+				$package = $this->input->post('hidden_package[]');
+				$rowno   = count($package);
 
-			$package = $this->input->post('hidden_package[]');
-			$rowno   = count($package);
+				$this->Feature_model->savefeatures($feature, $package, $rowno);
 
-			$this->Feature_model->savefeatures($feature, $package, $rowno);
+				// set flash data to show success message
 
-			// set flash data to show success message
+				$this->session->set_flashdata('success', "<div class='alert alert-success'>successfully added new data</div>");
 
-			$this->session->set_flashdata('success', "<div class='alert alert-success'>successfully added new data</div>");
+				return redirect('/feature/index');
+			} else {
 
-			return redirect('/feature/index');
-		} else {
+				$this->session->set_flashdata('error', 'please try again');
+			}
 
-			$this->session->set_flashdata('error', 'please try again');
 		}
-
-		//}
 
 		$this->load->view('/Template/insert');
 
