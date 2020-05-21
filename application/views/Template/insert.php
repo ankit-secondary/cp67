@@ -31,7 +31,7 @@
 </div>
 <div align='center'>
   <input type ='submit' name='insert' id='insert'
-  class='btn btn-primary' value='Insert'/>
+  class='btn btn-primary' value='addfeature'/>
   </div>
 </form>
 </br/>
@@ -164,22 +164,7 @@ packagedata=package.join(seperator);
   {
     if($('#save').text() =='save')
   {
-   if(feature==0)
-   {
-    feature='Add unlimited users';
-   }
-   if(feature==1)
-   {
-    feature='Remove users';
-   }
-   if(feature==2)
-   {
-    feature='Access to change  data';
-   }
-   if(feature==3)
-   {
-    feature='Block Users';
-   }
+
 
     count=count+1;
     output = '<tr id="row_'+count+'">';
