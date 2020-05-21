@@ -35,33 +35,30 @@ class Feature extends CI_Controller {
 
 		$this->load->view('/header');
 
-		$this->form_validation->set_rules('package[]', 'Package', 'required');
+		//$this->form_validation->set_rules('package[]', 'Package', 'required');
 
-		if ($this->form_validation->run() == TRUE) {
+		//if ($this->form_validation->run() == TRUE) {
 
-			if ($this->input->post('save')) {
+		if ($this->input->post('insert')) {
 
-				$feature = $this->input->post('feature');
+			$feature = $this->input->post('hidden_feature[]');
 
-				$package = $this->input->post('package[]');
+			$package = $this->input->post('hidden_package[]');
+			$rowno   = count($package);
 
-				$data = implode(',', $package);
+			$this->Feature_model->savefeatures($feature, $package, $rowno);
 
-				$featuredata = ['feature' => $feature, 'package' => $data];
+			// set flash data to show success message
 
-				$this->Feature_model->savefeatures($featuredata);
+			$this->session->set_flashdata('success', "<div class='alert alert-success'>successfully added new data</div>");
 
-				// set flash data to show success message
+			return redirect('/feature/index');
+		} else {
 
-				$this->session->set_flashdata('success', "<div class='alert alert-success'>successfully added new data</div>");
-
-				return redirect('/index.php/feature/index');
-			} else {
-
-				$this->session->set_flashdata('error', 'please try again');
-			}
-
+			$this->session->set_flashdata('error', 'please try again');
 		}
+
+		//}
 
 		$this->load->view('/Template/insert');
 
@@ -89,11 +86,12 @@ class Feature extends CI_Controller {
 
 				$this->session->set_flashdata('success', "<div class='alert alert-success'>successfully updated  data</div>");
 
-				return redirect('/index.php/feature/index');
+				return redirect('/feature/index');
+
 			} else {
 				$this->session->set_flashdata('success', "<div class='alert alert-danger'>please try again</div>");
 
-				return redirect('/index.php/feature/index');
+				return redirect('/feature/index');
 			}
 		}
 
@@ -107,7 +105,7 @@ class Feature extends CI_Controller {
 
 		$this->session->set_flashdata('success', "<div class='alert alert-danger'>successfully deleted  data</div>");
 
-		return redirect('/index.php/feature/index');
+		return redirect('/feature/index');
 	}
 
 }
