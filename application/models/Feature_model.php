@@ -2,12 +2,16 @@
 
 class Feature_model extends CI_Model {
 
-	function savefeatures($featuredata) {
+	function savefeatures($feature, $package, $rowno) {
 
-		//$query = "insert into features values('','$feature','$data')";
-		//$this->db->query($query);
+		for ($i = 0; $i < $rowno; $i++) {
 
-		$this->db->insert('features', $featuredata);
+			$query = "insert into features values('','$feature[$i]','$package[$i]')";
+			$this->db->query($query);
+
+		}
+
+		//$this->db->insert('features', $featuredata);
 
 	}
 
@@ -25,7 +29,7 @@ class Feature_model extends CI_Model {
 	function deleterecords($id) {
 
 		//$this->db->query("delete  from features where id='".$id."'");
-		
+
 		$this->db->where('id', $id);
 		$this->db->delete('features');
 	}
